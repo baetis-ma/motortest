@@ -38,7 +38,7 @@ data,3.0960,3.8640,4.6320,5.4000,0.000000,inf,
 ```
 ##### A perl program sent out curl commands and received the javascript resonce with raw ADC and pulse with mesurements. The perl program time stamped the reciept (relative to unix epoch even), calculated current by dividing measured voltage divided by 0.1 ohms, calculated battery voltage from output voltage after resistor divider and the rps from the pulse width. The outputs were stored in a table and examined with gnuplot.
 ##### I have order one of those five dollar strain guages/adc sets from aliex and will update.
-<img align="right" width="45%" height="350" src="pwr-speed.png"></img>
+<img align="left" width="45%" height="350" src="pwr-speed.png"></img>
 ##### Data from test run
 ```
 #unix epoch  1651148532.138633
