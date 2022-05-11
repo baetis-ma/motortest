@@ -1,5 +1,5 @@
 ## Simple Web Page
-<img align="right" width="45%" height="350" src="helloworld.png"></img>
+<img align="right" width="45%" height="350" src="motortestpage.png"></img>
 #####  A project is decribed that uses a webpage to control a test of a motor with a propellor. The esp hosts a webpage allowing :
 ```
 - power relay to the motor on/off
