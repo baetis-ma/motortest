@@ -36,12 +36,9 @@ curl --http0.9 192.168.0.106/trfData?vout=0x40+pwm=1300+freq=50+onoff=0 --output
 ```
 data,3.0960,3.8640,4.6320,5.4000,0.000000,inf,
 ```
-##### A perl program
-## Setting up
-
-
+##### A perl program sent out curl commands and received the javascript resonce with raw ADC and pulse with mesurements. The perl program time stamped the reciept (relative to unix epoch even), calculated current by dividing measured voltage divided by 0.1 ohms, calculated battery voltage from output voltage after resistor divider and the rps from the pulse width. The outputs were stored in a table and examined with gnuplot.
+##### I have order one of those five dollar strain guages/adc sets from aliex and will update.
 <img align="right" width="45%" height="350" src="pwr-speed.png"></img>
-
 ##### Data from test run
 ```
 #unix epoch  1651148532.138633
@@ -82,4 +79,6 @@ data,3.0960,3.8640,4.6320,5.4000,0.000000,inf,
   209.139167     1675    101.49    99.9    11.1   0
   215.290148     1700    117.75   111.0    11.1   0
 ```
+## Setting up
 ##### Another earlier repository https://baetis-ma.github.io/esp32-idf-website/ goes through setting up another very similar project with out the javascript. It describes a lot of the isoftware setup and function of a project similar enough to this project do not get repeated here. 
+##### I am hoping to get some quality characterization data from the 30A esc-A2212/13T 10000KV motors-1045 propellers system in the hopes of writting a simulation program for my drone, but we'll see how that goes.
