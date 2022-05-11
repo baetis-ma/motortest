@@ -1,4 +1,4 @@
-## Simple Web Page
+## Motor Testing Fixture Control
 <img align="right" width="45%" height="350" src="motortestpage.png"></img>
 #####  A project is decribed that uses a webpage to control a test of a motor with a propellor. The esp hosts a webpage allowing :
 ```
