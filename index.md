@@ -36,9 +36,9 @@ void hx711_read(float hx711_mv) {
    return(hx711volt);
 }
 ```
-<img align="right" width="20%" height="20%" src="loadcell.jpg"></img
-##### I ordered a loadcell and two hx711 measurement modules from aliexpress for $3.17, six weeks later I got the package - the loadcell one wire left attached and other less obviuos damage (also only one of the hx711s enclosed).
-<img align="right" width="20%" height="20%" src="loadcellrepair.jpg"></img>>
+<img align="right" width="30%" height="30%" src="loadcellrepair.jpg"></img
+##### I ordered a loadcell and two hx711 measurement modules from aliexpress for $3.17, six weeks later I got the package - the loadcell one wire left attached and other less obviuos damage (also only one of the hx711s enclosed). When the white coating was peeled back with a pair of tweasers the four places where the wires were attached are plainly visable. When the reisitance was measured between these wires (the loads are reistive so six possibilities) between adjacent leads the resistance was about 1Kohm (except between pin two and three the resistance was 3Kohms), the resistance between pins separated by a pin was 2Kohms. Thuns out the idividual strain restors in thhis module have a 1Kohm nominal resitance and are configuted in a wheatstone bridge. 
+<img align="right" width="60%" height="60%" src="loadcell.jpg"></img>>
 ##### The webpage shot to the right shows the responce and control fields assisting this test. The webpage is loaded when session is started and remains resident. The index.html embeds javascript code that responds to actions initiated by the user clicking or entering action fields on the browser display and in responce generates a tcp packet with a resource field of `GET /trfData?vout=0x40+pwm=1222+freq=50+onoff=0`. The javascript as responds to the return packet from the esp in the form `data,3.0960,3.8640,4.6320,5.4000,0.000000,inf,`, this is the data being collected from ADCs and a pulse counter on the esp, the javascript parses this data and updates the diplay with rev/min, power, voltage and weight measurements.
 ##### Using curl commands in a shell (or perl) script allows programmatic control of motor testing, where the pwm can be adjusted upward slowly and the motor speed, motor power and generated thrust can be saved to a file and studied with gnuplot afterward.
 ##### This project sets up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the browser.
