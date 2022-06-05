@@ -14,7 +14,7 @@ float hx711_read() {
    uint8_t data[4] = {0,0,0,0};
    while(gpio_get_level(GPIO_KX711_DOUT) == 1){
       printf("waiting\n");
-      vTaskDelay(10/portTICK_RATE_MS);
+      vTaskDelay(50/portTICK_RATE_MS);
    }
    for(int i = 0; i < 25; i++) {
       gpio_set_level(GPIO_KX711_SCK, 1);     
