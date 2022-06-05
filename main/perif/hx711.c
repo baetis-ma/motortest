@@ -9,7 +9,8 @@ void hx711_init() {
     vTaskDelay(100 / portTICK_PERIOD_MS);
 }
 
-void hx711_read() {
+float hx711_read() {
+   float hx711volt;
    uint8_t data[4] = {0,0,0,0};
    while(gpio_get_level(GPIO_KX711_DOUT) == 1){
       printf("waiting\n");
@@ -22,6 +23,9 @@ void hx711_read() {
       gpio_set_level(GPIO_KX711_SCK, 0);     
       ets_delay_us(10);      
    }
-   printf("0x%02x%02x%02x%02x   ", data[0], data[1], data[2], data[3]);
-   printf("%8.5f\n", (float)(256*256*256*data[0]+256*256*data[1]+256*data[2]+data[3])/(1ULL<<30));
+   //printf("0x%02x%02x%02x%02x   ", data[0], data[1], data[2], data[3]);
+   hx711volt = 20*(float)((256*(256*(256*data[0])+data[1])+data[2])+data[3])/(1ULL<<31);
+   printf("%9.4f mv\n", hx711volt);
+   return (hx711volt);
+
 }
