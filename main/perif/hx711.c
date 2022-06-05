@@ -4,17 +4,17 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-void hx711_init() {
-    gpio_set_level(GPIO_KX711_SCK, 0);   
-    vTaskDelay(100 / portTICK_PERIOD_MS);
-}
+//void hx711_init() {
+//    gpio_set_level(GPIO_KX711_SCK, 0);   
+//    vTaskDelay(100 / portTICK_PERIOD_MS);
+//}
 
 float hx711_read() {
    float hx711volt;
    uint8_t data[4] = {0,0,0,0};
    while(gpio_get_level(GPIO_KX711_DOUT) == 1){
       printf("waiting\n");
-      vTaskDelay(10);
+      vTaskDelay(10/portTICK_RATE_MS);
    }
    for(int i = 0; i < 25; i++) {
       gpio_set_level(GPIO_KX711_SCK, 1);     

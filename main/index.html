@@ -33,10 +33,12 @@ div.absoluteleft {
 #pwmtext    { position:absolute;top:30%;left:21%;}
 #pwmmaxtext { position:absolute;top:45%;left:5%; }
 #freqtext   { position:absolute;top:67%;left:20%; }
-#powertext  { position:absolute;top:25%;left:25%; }
-#power      { position:absolute;top:34%;left:30%; }
-#rpmtext    { position:absolute;top:50%;left:25%; }
-#rpm        { position:absolute;top:59%;left:30%; }
+#thrusttext { position:absolute;top:20%;left:25%; }
+#thrust     { position:absolute;top:29%;left:30%; }
+#powertext  { position:absolute;top:40%;left:25%; }
+#power      { position:absolute;top:49%;left:30%; }
+#rpmtext    { position:absolute;top:60%;left:25%; }
+#rpm        { position:absolute;top:69%;left:30%; }
 #dcin       { position:absolute;top:85%;left:85%; }
 </style>
 </head>
@@ -63,6 +65,8 @@ div.absoluteleft {
 
 <div class="absoluteright">
   <h2>Outputs</h2>
+  <h3><p id="thrusttext">Thrust</p></h4>
+  <h4><p id = "thrust"> </p></h4>
   <h3><p id="powertext">Output Power</p></h4>
   <h4><p id = "power"> </p></h4>
   <h3><p id="rpmtext">Revolutions/sec</p></h4>
@@ -83,7 +87,7 @@ div.absoluteleft {
          document.getElementById("pwm").value = pwm; 
          document.getElementById("pwmmax").value = pwmmax; 
          document.getElementById("freq").value = freq; 
-         tempstr = "vout=0x"+vout.toString(16)+"+pwm="+pwm+"+freq="+freq+"+onoff="+startstop;
+         tempstr = "pwm="+pwm+"+freq="+freq+"+onoff="+startstop;
        }
       }
 
@@ -91,11 +95,11 @@ div.absoluteleft {
          if (initialize == 1) { initialize = 0; 
             document.getElementById("startstop").value = "Start"; 
             document.getElementById("startstop").style.background="red" ; 
-            tempstr = "vout=0x00+pwm="+1000+"+freq="+50+"+onoff="+1; 
+            tempstr = "pwm="+1000+"+freq="+50+"+onoff="+1; 
             startstop = 1;
          }        
          getData(); 
-      }  ,2000); 
+      }  ,4000); 
 
       document.getElementById('startstop').onclick = function() {
          if(document.getElementById("startstop").value === "Stop"){
@@ -105,7 +109,7 @@ div.absoluteleft {
             document.getElementById("startstop").value = "Stop"; 
             document.getElementById("startstop").style.background="green" ; 
             startstop = 0; }
-         tempstr = "vout=0x"+vout.toString(16)+"+pwm="+pwm+"+freq="+freq+"+onoff="+startstop;
+         tempstr = "pwm="+pwm+"+freq="+freq+"+onoff="+startstop;
       }
 
       function getData() {
@@ -117,29 +121,33 @@ div.absoluteleft {
          xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                var DataRet = this.responseText;
+               
                var DataRetArray = DataRet.split(',');
+               console.log("gotback-->"+DataRetArray[0]);
+               console.log("  thrust  "+DataRetArray[1]);
+               console.log("          "+DataRetArray[2]); 
+                console.log("         "+DataRetArray[3]);
+               console.log("          "+DataRetArray[4]);               
+               console.log("          "+DataRetArray[5]);                            
                var lasttraceptr;
-               header = DataRetArray[0];
-               v0 = DataRetArray[1];
-               v1 = DataRetArray[2];
-               v2 = DataRetArray[3];
-               v3 = DataRetArray[4];
-               period = DataRetArray[5];
-               rpm = DataRetArray[6];
+               thrust = DataRetArray[1];
+               v0 = DataRetArray[2];
+               v1 = DataRetArray[3];
+               period = DataRetArray[4];
+               rpm = DataRetArray[5];
 
-               if(startstop == 1) { vstart = v0; }
-               dcin = v1 / 0.227;
-               power = dcin *  (v0 - vstart)/0.1;
+               dcin = v0 / 0.227;
+               power = dcin * v1 / 0.1;
+               document.getElementById("thrust").innerHTML = thrust+" grams"; 
                document.getElementById("power").innerHTML = power.toFixed(2)+" Watts"; 
                document.getElementById("rpm").innerHTML = rpm+" rpm"; 
                document.getElementById("dcin").innerHTML = dcin.toFixed(2)+" V"; 
-               console.log(pwm+" "+rpm+" "+power.toFixed(2));
+               console.log(thrust+" "+pwm+" "+rpm+" "+power.toFixed(2));
                
              }
         }
       }
       var dcin;
-      var vstart;
       var initialize = 1;
       var tempstr="";
       var DataRet;
@@ -149,8 +157,7 @@ div.absoluteleft {
       var vout = 0x40;
       var v0 = 0x40;
       var v1 = 0x40;
-      var v2 = 0x40;
-      var v3 = 0x40;
+      var thrust = 0;
       var rpm = 20;
       var period = .05;
       var freq = 50;
