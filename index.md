@@ -21,6 +21,7 @@
 ```C
 #include "esp_timer.h"
 #include "rom/ets_sys.h"
+float hx711volt, hx711voltlpi = 0;
 
 void hx711_read(float hx711_mv) {
    uint8_t data[4] = {0,0,0,0};
@@ -35,13 +36,14 @@ void hx711_read(float hx711_mv) {
       gpio_set_level(GPIO_KX711_SCK, 0);
       ets_delay_us(10);
    }
-   float hx711volt = 20*(float)(256*256*256*data[0]+256*256*data[1]+256*data[2]+data[3])/(1ULL<<31);
-   printf("%8.5fmv\n", hx711volt);
-   return(hx711volt);
+   hx711volt = 20*(float)(16777216*data[0]+65536*data[1]+256*data[2]+data[3])/(1ULL<<31);
+   hx711voltlp = 0.9 hx711voltlp + 0.1 * hx711volt;
+   //printf("%8.5fmv\n", hx711voltlp);
+   return(hx711voltlp);
 }
 ```
 ##### The loadcell measurement dont seem to drift much over time, are very stable when just sitting there and sport few maverics. It calibrated out to 2.44uV/gram.
-##### The webpage shot to the up at the top shows the responce and control fields assisting this test. The webpage is loaded when browser requests the url `192.168.0.106/index.html` and remains resident in broswer till exited. The index.html embeds javascript code that responds to actions initiated by the user clicking or entering action fields on the browser display and in responce generates a tcp packet with a resource field of `GET /trfData?vout=0x40+pwm=1222+freq=50+onoff=0`. The javascript responds to the return packet from the esp in the form `data,3.0960,3.8640,4.6320,5.4000,0.000000,inf,`, this is the data being collected from ADCs and a pulse counter on the esp, the javascript parses this data and updates the diplay with rev/min, power, voltage and weight measurements. The javascript also repeats the current request every few seconds in order to keep the data section of the webpage current.
+##### The webpage shot to the up at the top shows the responce and control fields assisting this test. The webpage is loaded when browser requests the url `192.168.0.106/index.html` and remains resident in broswer till exited. The index.html embeds javascript code that responds to actions initiated by the user clicking or entering action fields on the browser display and in responce generates a tcp packet with a resource field of `GET /trfData?vout=0x40+pwm=1222+freq=50+onoff=0`. The javascript responds to the return packet from the esp in the form `data,3.0960,3.8640,4.6320,5.4000,0.000000,inf,`, this is the data being collected from ADCs and a pulse counter on the esp, the javascript parses this data and updates the diplay with rev/min, power, voltage and weight measurements. The javascript also repeats the current request every few seconds in order to keep the data section of the webpage current, the stability of the measurement is is about 0.1uV or a tenth of a gram of a gram.
 ##### Using curl commands in a shell (or perl) script allows programmatic control of motor testing, where the pwm can be adjusted upward slowly and the motor speed, motor power and generated thrust can be saved to a file and studied with gnuplot afterward.
 ##### This project sets up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the browser.
 ##### The tcp_server_task in the esp takes the incoming IP packets combines, windows, verifies/requests retransmission, and notifies us that an http request is ready. When I filled 192.168.0.122/index.html into my browser address bar window the contents of the tcp server (running over in my esp running a wifi connection at IP adrress 192.168.0.122) receive buffer were:
