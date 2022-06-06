@@ -76,11 +76,11 @@ Accept-Language: en-US,en;q=0.9
 ```
 curl --http0.9 192.168.0.125/trfData?pwm=1300+freq=50+onoff=0 --output -
 or
-printf 'GET/ 192.168.0.125/trfData?pwm=1300+freq=50+onoff=0 HTTP/1.1/n/r/n/r' | nc 192.168.0.106 80 
+printf 'GET /trfData?pwm=1100+freq=50+onoff=0 HTTP/1.1\r\n\r\n' | nc 192.168.0.125 80
 ```
 ##### the tcpserver running on the esp will respond with something like
 ```
-data,30.9,12.86,4.63,50.0,0.020,
+data,66.94,12.09,0.4930,0.0303,33.05,
 ```
 ###### where 30.9 is thrust in grams, 12.86 is battery voltage, 4.63 is esc current, 50.0 is rec/sec of motor and 0.0200 period of motor revolution.
 ##### Using curl (or netcat) commands in a shell (or perl) script allows programmatic control of motor testing, where the pwm can be adjusted upward slowly and the motor speed, motor power and generated thrust can be saved to a file and studied with gnuplot afterward.
