@@ -204,9 +204,10 @@ for ($i = 0; $i <= 36; $i++) {
   215.290148     1700    117.75   111.0    11.1   0
 ```
 
-<img align="left" width="45%" src="props.png"></img>
-##### Initial debug testing was done with a 2 Amp 12 volt wall transformer supply which was really limited to about 20 Watts, even drawing one amp the voltage was reduced by almost a volt. The first test was disappointing in that the thrust measurements were much lower than expected, turns out there was a 1045 propellor attached to a clockwise rotating motor (50-50 chance!). The propellor was turned upside down and the test repeated with results more in line with expected. Next a 1045R propellor was found and attached and the results were vrey similar to the upside down 1045.
+<img align="right" width="50%" src="props.png"></img>
 #### Result Discussion
+##### Initial debug testing was done with a 2 Amp 12 volt wall transformer supply which was really limited to about 20 Watts, even drawing one amp the voltage was reduced by almost a volt. The first test was disappointing in that the thrust measurements were much lower than expected, turns out there was a 1045 propellor attached to a clockwise rotating motor (50-50 chance!). The propellor was turned upside down and the test repeated with results more in line with expected. Next a 1045R propellor was found and attached and the results were vrey similar to the upside down 1045.
+
 ##### 
 ## Setting up 
 ##### Another earlier repository https://baetis-ma.github.io/esp32-idf-website/one amp the voltage bu a half volt goes through setting up another very similar project with out the javascript. It describes a lot of the isoftware setup and function of a project similar enough to this project do not get repeated here. 
