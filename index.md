@@ -1,5 +1,5 @@
 ## Motor Testing Fixture Control
-<img align="right" width="45%" height="350" src="motortestpage.png"></img>
+<img align="right" width="45%" height="350" src="screenshot.png"></img>
 #####  A project is decribed that provides a test of a pwm controlled esc/motor with a propellor. This project sets up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the client data collecting device. Features of the setup include:
 ```
 - power relay to the motor ESC power on/off
