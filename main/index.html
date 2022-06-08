@@ -44,7 +44,7 @@ div.absoluteleft {
 </head>
 
 <body style="background-color:powderblue;">
-<h1>Fan Control</h1>
+<h1>A2212 Drone Motor Test</h1>
 
 <div class="absoluteleft">
   <h2>Inputs</h2>
@@ -126,7 +126,7 @@ div.absoluteleft {
                console.log("gotback-->"+DataRetArray[0]);
                console.log("  thrust  "+DataRetArray[1]);
                console.log("          "+DataRetArray[2]); 
-                console.log("         "+DataRetArray[3]);
+               console.log("          "+DataRetArray[3]);
                console.log("          "+DataRetArray[4]);               
                console.log("          "+DataRetArray[5]);                            
                var lasttraceptr;
@@ -135,13 +135,12 @@ div.absoluteleft {
                v1 = DataRetArray[3];
                period = DataRetArray[4];
                rpm = DataRetArray[5];
-
-               dcin = v0 / 0.227;
-               power = dcin * v1 / 0.1;
+               dcin = v0;
+               power = v0 * v1;
                document.getElementById("thrust").innerHTML = thrust+" grams"; 
                document.getElementById("power").innerHTML = power.toFixed(2)+" Watts"; 
                document.getElementById("rpm").innerHTML = rpm+" rpm"; 
-               document.getElementById("dcin").innerHTML = dcin.toFixed(2)+" V"; 
+               document.getElementById("dcin").innerHTML = v0+" V"; 
                console.log(thrust+" "+pwm+" "+rpm+" "+power.toFixed(2));
                
              }

@@ -116,7 +116,7 @@ void tcp_server_task(void *pvParameters)
         while ((sock = accept(listen_sock, (struct sockaddr *)&sourceAddr, &addrLen)) < 0) ;
         ESP_LOGI(TAG, "Socket accepted");
         len = recv(sock, rx_packet, sizeof(rx_packet) - 1, 0);
-        rx_packet[len] = 0;  //stringify
+        rx_packet[len] = 0; 
         printf("     RCV PACKET\n%s\n", rx_packet);
 
         temp = strstr (rx_packet, "HTTP/") - rx_packet;
