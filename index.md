@@ -26,10 +26,10 @@ float hx711volt, hx711voltlpi = 0;
 
 void hx711_read(float hx711_mv) {
    uint8_t data[4] = {0,0,0,0};
-   while(gpio_get_level(GPIO_KX711_DOUT) == 1){
-      printf("waiting\n");
-      vTaskDelay(10);
-   }
+   //wait for output to go low - meaning conversion complete data ready
+   while(gpio_get_level(GPIO_KX711_DOUT) == 1) { vTaskDelay(10); }
+   
+   //at 50KHz make 25 clock pulses and read data (3x per second)
    for(int i = 0; i < 25; i++) {
       gpio_set_level(GPIO_KX711_SCK, 1);
       ets_delay_us(10);
@@ -159,7 +159,7 @@ for ($i = 0; $i <= 32; $i++) {
                          $nowtime, $pwm, $battery * $current, $rps, $dcin, $weight, $onoff);}
 }
 ```
-##### The above program is rum as `./plotdata.pl | tee <output file>`, the output shown below appears on monitor as data is collected and the data is also stored in the output file. The data file can be read by gnuplot to make graphs of the data.
+##### The above program is run as `./plotdata.pl | tee <output file>`, the output shown below appears on monitor as data is collected as well as stored in the output file. The data file can be read by gnuplot to make graphs of the data. The contents of a saved data file are shown below :
 ```
 #unix epoch  1654616465.512015
 #    time      throttle    power    rps   vbatt     weight     onoff
@@ -194,13 +194,11 @@ for ($i = 0; $i <= 32; $i++) {
    201.985452     1600    91.16    97.8    10.4     389.50      0
    213.260603     1625    98.26    98.1    10.4     388.35      0
 ```
-
 <img align="right" width="45%" src="props.png"></img>
 #### Result Discussion
 ##### Initial debug testing was done with a 2 Amp 12 volt wall transformer supply which was really limited to about 20 Watts, even drawing one amp the voltage was reduced by almost a volt. The first test was disappointing in that the thrust measurements were much lower than expected, turns out there was a 1045 propeller attached to a clockwise rotating motor (50-50 chance!). The propeller was turned upside down and the test repeated with results more in line with expected. Next a 1045R propeller was found and attached and the results were vrey similar to the upside down 1045. The 1045 and upside down 1045 were both blowing up in other word generating negative thrust measurements, the absolute value of the thrust was plotted to the right. Data points are plotted along with a smooth sbezier fit line.
 <img align="right" width="40%" src="pwmcontrol.png"></img>
-##### If the ESC (electronic speed control) does not supply power to the motor it may need to be calibrated, the proceedure is to disconnect power from the ESC, make the pwm pulse width into the ESC maximum (2000 microseconds) and then attach the power and wait for it to stop beeping. This can be done via the website by making sure power through the relay is off - power button should say Start with red background), then adjust PWM Maximum to 2000 and hit enter while in text box, adjust PWM to 2000 and hit enter, then click the power button and wait for the ESC to stop beeping. Shut off the power and the ESC should be calibrated.
-
+##### If the ESC (electronic speed control) does not supply power to the motor it may need to be calibrated, the proceedure is to disconnect power from the ESC, make the pwm pulse width into the ESC maximum (2000 microseconds) and then attach the power and wait for the esc/motor to stop beeping. This can be done via the website by making sure the power relay is off - power button should say Start with red background, then adjust PWM Maximum to 2000 and hit enter while in text box, adjust PWM to 2000 and hit enter, then click the power button and wait for the ESC to stop beeping. Shut off the power and the ESC should be calibrated. The pwm command needs to be set to 1000 when power is applied to the ESC.
 ##### A 2200mah 3S 25C LiPo battery was attached and the measurements repeated. The first graph shows the three measurements (revolutions per second, power and thrust) plotted vs the ESC control pulse width from 1 to 1.7 microseconds.
 <img align="right" width="40%" src="powervsrpmth.png"></img>
 
