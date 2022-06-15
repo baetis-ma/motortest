@@ -1,5 +1,5 @@
 ## Motor Testing Fixture Control
-<img align="right" width="45%" height="350" src="screenshot.png"></img>
+<img align="right" width="50%" height="50%" src="screenshot.png"></img>
 #####  A project is described that provides a test of a pwm controlled esc/motor with a propeller. This project sets up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the client data collecting device. Features of the setup include:
 ```
 - power relay to the motor ESC (electronic speed control) power on/off
@@ -198,12 +198,12 @@ for ($i = 0; $i <= 32; $i++) {
 #### Result Discussion
 ##### Initial debug testing was done with a 2 Amp 12 volt wall transformer supply which was really limited to about 20 Watts, even drawing one amp the voltage was reduced by almost a volt. The first test was disappointing in that the thrust measurements were much lower than expected, turns out there was a 1045 propeller attached to a clockwise rotating motor (50-50 chance!). The propeller was turned upside down and the test repeated with results more in line with expected. Next a 1045R propeller was found and attached and the results were vrey similar to the upside down 1045. The 1045 and upside down 1045 were both blowing up in other word generating negative thrust measurements, the absolute value of the thrust was plotted to the right. Data points are plotted along with a smooth sbezier fit line.
 <img align="right" width="40%" src="pwmcontrol.png"></img>
-##### If the ESC (electronic speed control) does not supply power to the motor it may need to be calibrated, the proceedure is to disconnect power from the ESC, make the pwm pulse width into the ESC maximum (2000 microseconds) and then attach the power and wait for the esc/motor to stop beeping. This can be done via the website by making sure the power relay is off - power button should say Start with red background, then adjust PWM Maximum to 2000 and hit enter while in text box, adjust PWM to 2000 and hit enter, then click the power button and wait for the ESC to stop beeping. Shut off the power and the ESC should be calibrated. The pwm command needs to be set to 1000 when power is applied to the ESC.
-##### A 2200mah 3S 25C LiPo battery was attached and the measurements repeated. The first graph shows the three measurements (revolutions per second, power and thrust) plotted vs the ESC control pulse width from 1 to 1.7 microseconds.
+##### A 2200mah 3S 25C LiPo battery was attached and the measurements repeated. The first graph shows the three measurements (revolutions per second, power and thrust) plotted vs the ESC control pulse width from 1.0 to 1.7 milliseconds.
 <img align="right" width="40%" src="powervsrpmth.png"></img>
 
 <img align="right" width="40%" src="rmpvsthrust.png"></img>
 ##### 
 ## Setting up 
+##### If the ESC (electronic speed control) does not supply power to the motor it may need to be calibrated, the proceedure is to disconnect power from the ESC, make the pwm pulse width into the ESC maximum (2000 microseconds) and then attach the power and wait for the esc/motor to stop beeping. This can be done via the website by making sure the power relay is off - power button should say Start with red background, then adjust PWM Maximum to 2000 and hit enter while in text box, adjust PWM to 2000 and hit enter, then click the power button and wait for the ESC to stop beeping. Shut off the power and the ESC should be calibrated. The pwm command needs to be set to 1000 when power is applied to the ESC.
 ##### Another earlier repository https://baetis-ma.github.io/esp32-idf-website/one amp the voltage bu a half volt goes through setting up another very similar project with out the javascript. It describes a lot of the software setup and function of a project similar enough to this project to not get repeated here. 
 ##### I am hoping to get some quality characterization data from the 30A ESC-A2212/13T 10000KV motors-1045 propellers system in the hopes of writing a simulation program for my drone, but we'll see how that goes.
