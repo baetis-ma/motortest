@@ -1,5 +1,5 @@
 ## Motor Testing Fixture Control
-<img align="right" width="50%" height="50%" src="screenshot.png">
+<img align="right" width="50%" height="50%" src="screenshot.png"></img>
 #####  A project is described that provides a test of a pwm controlled ESP/motor with a propeller. This project use and ESP32S module to set up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the data collecting/display device. Features of the setup include:
 ```
 - power relay to the motor ESC (electronic speed control) power on/off
@@ -197,12 +197,10 @@ for ($i = 0; $i <= 32; $i++) {
 <img align="right" width="45%" src="props.png"></img>
 #### Result Discussion
 ##### Initial debug testing was done with a 2 Amp 12 volt wall transformer supply which was really limited to about 20 Watts, even drawing one amp the voltage was reduced by almost a volt. The first test was disappointing in that the thrust measurements were much lower than expected, turns out there was a 1045 propeller attached to a clockwise rotating motor (50-50 chance!). The propeller was turned upside down and the test repeated with results more in line with expected. Next a 1045R propeller was found and attached and the results were vrey similar to the upside down 1045. The 1045 and upside down 1045 were both blowing up in other word generating negative thrust measurements, the absolute value of the thrust was plotted to the right. Data points are plotted along with a smooth sbezier fit line.
-<img align="right" width="40%" src="pwmcontrol.png"></img>
-##### A 2200mah 3S 25C LiPo battery was attached and the measurements repeated. The first graph shows the three measurements (revolutions per second, power and thrust) plotted vs the ESC control pulse width from 1.0 to 1.7 milliseconds.
-<img align="right" width="40%" src="powervsrpmth.png"></img>
-
-<img align="right" width="40%" src="rmpvsthrust.png"></img>
-##### 
+<img align="right" width="45%" src="pwmcontrol.png"></img>
+##### A 2200mah 3S 25C LiPo battery was attached and the measurements repeated. The first graph shows the three measurements (revolutions per second, power and thrust) plotted vs the ESC control pulse width from 1.0 to 1.7 milliseconds. Notice that the Thrust reaches 250g at with an ESC pwm input of about 1400us. At this point the propeller is spinning at about 80 rps (4800 rpm) and using about 60 Watts of battery power. The thrust is related to the power with a curve fit by Thrust = 40 * Power(W) ^ 0.72.
+<img align="right" width="45%" src="rmpvsthrust.png"></img>
+##### The last graph has the propeller speed plotted with the Thrust generated. The relationship seems to be that the is produced as the square of the motor speed.
 ## Setting up 
 ##### If the ESC (electronic speed control) does not supply power to the motor it may need to be calibrated, the proceedure is to disconnect power from the ESC, make the pwm pulse width into the ESC maximum (2000 microseconds) and then attach the power and wait for the esc/motor to stop beeping. This can be done via the website by making sure the power relay is off - power button should say Start with red background, then adjust PWM Maximum to 2000 and hit enter while in text box, adjust PWM to 2000 and hit enter, then click the power button and wait for the ESC to stop beeping. Shut off the power and the ESC should be calibrated. The pwm command needs to be set to 1000 when power is applied to the ESC.
 ##### Another earlier repository https://baetis-ma.github.io/esp32-idf-website/one amp the voltage bu a half volt goes through setting up another very similar project with out the javascript. It describes a lot of the software setup and function of a project similar enough to this project to not get repeated here. 
