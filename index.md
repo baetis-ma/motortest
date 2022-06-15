@@ -1,6 +1,6 @@
 ## Motor Testing Fixture Control
-<img align="right" width="50%" height="50%" src="screenshot.png"></img>
-#####  A project is described that provides a test of a pwm controlled esc/motor with a propeller. This project sets up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the client data collecting device. Features of the setup include:
+<img align="right" width="50%" height="50%" src="screenshot.png">
+#####  A project is described that provides a test of a pwm controlled ESP/motor with a propeller. This project use and ESP32S module to set up a simple tcp socket with enough functionality to serve up a stand-alone .html file and handle bi-directional data flow between the esp device and the data collecting/display device. Features of the setup include:
 ```
 - power relay to the motor ESC (electronic speed control) power on/off
 - current being used by ESC
